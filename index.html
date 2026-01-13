@@ -1,109 +1,126 @@
-<html lang="zh-TW">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>波蘭滑雪行程表</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* 暖灰色調與雪山背景 */
-        body {
-            background-color: #e5e5e4; /* 暖灰色底 */
-            background-image: linear-gradient(rgba(229, 229, 228, 0.8), rgba(229, 229, 228, 0.8)), 
-                              url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            min-height: 100vh;
-        }
-        /* 模擬手機 App 的卡片質感 */
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-    </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
 </head>
-<body class="p-4 md:p-8">
-
-    <div id="app" class="max-w-md mx-auto">
-        
-        <header class="mb-6 text-center">
-            <h1 class="text-3xl font-extrabold text-gray-800 tracking-tight">POLAND</h1>
-            <p class="text-gray-600 font-medium">Winter Ski Trip 2026</p>
-        </header>
-
-        <div class="flex mb-6 bg-white/40 p-1 rounded-2xl shadow-inner">
-            <button @click="activeTab = 'schedule'" 
-                    :class="activeTab === 'schedule' ? 'bg-white text-gray-800 shadow-md' : 'text-gray-500'"
-                    class="flex-1 py-3 rounded-xl transition-all duration-300 font-bold">
-                <i class="fa-solid fa-calendar-list mr-2"></i>行程
-            </button>
-            <button @click="activeTab = 'map'" 
-                    :class="activeTab === 'map' ? 'bg-white text-gray-800 shadow-md' : 'text-gray-500'"
-                    class="flex-1 py-3 rounded-xl transition-all duration-300 font-bold">
-                <i class="fa-solid fa-map-location-dot mr-2"></i>地圖
-            </button>
-        </div>
-
-        <div v-if="activeTab === 'schedule'" class="space-y-4">
-            <div v-for="(item, index) in itinerary" :key="index" 
-                 class="glass-effect p-5 rounded-3xl shadow-lg transition-transform hover:scale-[1.02]">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-xs font-black text-gray-400 uppercase tracking-widest">{{ item.date }}</span>
-                    <span v-if="item.ski" class="bg-blue-500 text-white text-[10px] px-2 py-1 rounded-full font-bold">SKI DAY</span>
-                </div>
-                <h2 class="text-xl font-bold text-gray-800">{{ item.location }}</h2>
-                <p class="text-gray-600 mt-1 text-sm leading-relaxed">{{ item.description }}</p>
-                
-                <a v-if="item.mapLink" :href="item.mapLink" target="_blank" 
-                   class="mt-4 inline-flex items-center text-xs font-bold text-blue-700 bg-blue-100/50 px-3 py-2 rounded-lg hover:bg-blue-100 transition-all">
-                    <i class="fa-solid fa-location-arrow mr-2"></i>前往滑雪場地
-                </a>
-            </div>
-        </div>
-
-        <div v-if="activeTab === 'map'" class="glass-effect p-8 rounded-3xl shadow-lg text-center">
-            <div class="w-20 h-20 bg-white/50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fa-solid fa-mountain-sun text-3xl text-gray-500"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">滑雪場分佈</h3>
-            <p class="text-gray-600 text-sm mb-6">點擊行程中的連結以查看詳細 Google 地圖位置</p>
-            
-            <div class="space-y-3">
-                <div class="flex items-center justify-between p-3 bg-white/30 rounded-2xl border border-white/50">
-                    <span class="text-sm font-bold">16號雪場</span>
-                    <a href="https://maps.app.goo.gl/igv5sHncomHhbMTa6?g_st=ipc" class="text-blue-600 text-sm underline">開啟連結</a>
-                </div>
-                <div class="flex items-center justify-between p-3 bg-white/30 rounded-2xl border border-white/50">
-                    <span class="text-sm font-bold">17號雪場</span>
-                    <a href="https://maps.app.goo.gl/uhQST4QBPB4qhwbS6?g_st=ipc" class="text-blue-600 text-sm underline">開啟連結</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        const { createApp, ref } = Vue
-
-        createApp({
-            setup() {
-                const activeTab = ref('schedule');
-                const itinerary = ref([
-                    { date: 'JAN 15', location: '抵達波蘭', description: '抵達機場並前往市區酒店入住，適應寒冷天氣。', ski: false },
-                    { date: 'JAN 16', location: '波蘭滑雪場 A', description: '第一天滑雪體驗，感受粉雪魅力。', ski: true, mapLink: 'https://maps.app.goo.gl/igv5sHncomHhbMTa6?g_st=ipc' },
-                    { date: 'JAN 17', location: '波蘭滑雪場 B', description: '進階雪道挑戰，享受速度感。', ski: true, mapLink: 'https://maps.app.goo.gl/uhQST4QBPB4qhwbS6?g_st=ipc' },
-                    { date: 'JAN 18', location: '波蘭市區遊覽', description: '在古城漫步，享受道地波蘭美食。', ski: false },
-                    { date: 'JAN 19', location: '賦歸', description: '整理裝備，前往機場搭機返程。', ski: false }
-                ]);
-
-                return { activeTab, itinerary }
-            }
-        }).mount('#app')
-    </script>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-TW"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;波蘭滑雪行程表&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/vue@3/dist/vue.global.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 暖灰色調與雪山背景 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #e5e5e4; /* 暖灰色底 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-image: linear-gradient(rgba(229, 229, 228, 0.8), rgba(229, 229, 228, 0.8)),<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                              </span>url('https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?q=80&amp;w=2070&amp;auto=format&amp;fit=crop');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-size: cover;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-position: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-attachment: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* 模擬手機 App 的卡片質感 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.glass-effect {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.6);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(12px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>-webkit-backdrop-filter: blur(12px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(255, 255, 255, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="p-4 md:p-8"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="app" class="max-w-md mx-auto"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;header class="mb-6 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="text-3xl font-extrabold text-gray-800 tracking-tight"&gt;POLAND&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-gray-600 font-medium"&gt;Winter Ski Trip 2026&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex mb-6 bg-white/40 p-1 rounded-2xl shadow-inner"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button @click="activeTab = 'schedule'"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>:class="activeTab === 'schedule' ? 'bg-white text-gray-800 shadow-md' : 'text-gray-500'"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>class="flex-1 py-3 rounded-xl transition-all duration-300 font-bold"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;i class="fa-solid fa-calendar-list mr-2"&gt;&lt;/i&gt;行程</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button @click="activeTab = 'map'"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>:class="activeTab === 'map' ? 'bg-white text-gray-800 shadow-md' : 'text-gray-500'"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>class="flex-1 py-3 rounded-xl transition-all duration-300 font-bold"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;i class="fa-solid fa-map-location-dot mr-2"&gt;&lt;/i&gt;地圖</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div v-if="activeTab === 'schedule'" class="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div v-for="(item, index) in itinerary" :key="index"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                 </span>class="glass-effect p-5 rounded-3xl shadow-lg transition-transform hover:scale-[1.02]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex justify-between items-center mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs font-black text-gray-400 uppercase tracking-widest"&gt;{{ item.date }}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span v-if="item.ski" class="bg-blue-500 text-white text-[10px] px-2 py-1 rounded-full font-bold"&gt;SKI DAY&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-xl font-bold text-gray-800"&gt;{{ item.location }}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-gray-600 mt-1 text-sm leading-relaxed"&gt;{{ item.description }}&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;a v-if="item.mapLink" :href="item.mapLink" target="_blank"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                   </span>class="mt-4 inline-flex items-center text-xs font-bold text-blue-700 bg-blue-100/50 px-3 py-2 rounded-lg hover:bg-blue-100 transition-all"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i class="fa-solid fa-location-arrow mr-2"&gt;&lt;/i&gt;前往滑雪場地</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div v-if="activeTab === 'map'" class="glass-effect p-8 rounded-3xl shadow-lg text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="w-20 h-20 bg-white/50 rounded-full flex items-center justify-center mx-auto mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;i class="fa-solid fa-mountain-sun text-3xl text-gray-500"&gt;&lt;/i&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 class="text-xl font-bold text-gray-800 mb-2"&gt;滑雪場分佈&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-gray-600 text-sm mb-6"&gt;點擊行程中的連結以查看詳細 Google 地圖位置&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center justify-between p-3 bg-white/30 rounded-2xl border border-white/50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-sm font-bold"&gt;16號雪場&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="https://maps.app.goo.gl/igv5sHncomHhbMTa6?g_st=ipc" class="text-blue-600 text-sm underline"&gt;開啟連結&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center justify-between p-3 bg-white/30 rounded-2xl border border-white/50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-sm font-bold"&gt;17號雪場&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="https://maps.app.goo.gl/uhQST4QBPB4qhwbS6?g_st=ipc" class="text-blue-600 text-sm underline"&gt;開啟連結&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const { createApp, ref } = Vue</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>createApp({</p>
+<p class="p1"><span class="Apple-converted-space">            </span>setup() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const activeTab = ref('schedule');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const itinerary = ref([</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ date: 'JAN 15', location: '抵達波蘭', description: '抵達機場並前往市區酒店入住，適應寒冷天氣。', ski: false },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ date: 'JAN 16', location: '波蘭滑雪場 A', description: '第一天滑雪體驗，感受粉雪魅力。', ski: true, mapLink: 'https://maps.app.goo.gl/igv5sHncomHhbMTa6?g_st=ipc' },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ date: 'JAN 17', location: '波蘭滑雪場 B', description: '進階雪道挑戰，享受速度感。', ski: true, mapLink: 'https://maps.app.goo.gl/uhQST4QBPB4qhwbS6?g_st=ipc' },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ date: 'JAN 18', location: '波蘭市區遊覽', description: '在古城漫步，享受道地波蘭美食。', ski: false },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ date: 'JAN 19', location: '賦歸', description: '整理裝備，前往機場搭機返程。', ski: false }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>]);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>return { activeTab, itinerary }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}).mount('#app')</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
 </body>
 </html>
